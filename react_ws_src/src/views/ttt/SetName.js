@@ -1,16 +1,18 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
 export default class SetName extends Component {
 
-	constructor (props) {
+	constructor(props) {
 		super(props)
 
-		this.state = {}
+		this.state = {
+			name: (typeof window !== 'undefined' && window.localStorage && window.localStorage.getItem('xttt_username')) || ''
+		}
 	}
 
-//	------------------------	------------------------	------------------------
+	//	------------------------	------------------------	------------------------
 
-	render () {
+	render() {
 		return (
 			<div id='SetName'>
 
@@ -18,7 +20,7 @@ export default class SetName extends Component {
 
 				<div ref='nameHolder' className='input_holder left'>
 					<label>Name </label>
-					<input ref='name' type='text' className='input name' placeholder='Name' />
+					<input ref='name' type='text' className='input name' placeholder='Name' defaultValue={this.state.name} />
 				</div>
 
 
@@ -28,14 +30,19 @@ export default class SetName extends Component {
 		)
 	}
 
-//	------------------------	------------------------	------------------------
+	//	------------------------	------------------------	------------------------
 
-	saveName (e) {
+	saveName(e) {
 		// const { name } = this.refs
 		// const { onSetName } = this.props
 		// onSetName(name.value.trim())
 
-		this.props.onSetName(this.refs.name.value.trim())
+		const name = this.refs.name.value.trim()
+		if (typeof window !== 'undefined' && window.localStorage) {
+			window.localStorage.setItem('xttt_username', name)
+		}
+
+		this.props.onSetName(name)
 	}
 
 }

@@ -19,14 +19,14 @@
 <!--	========================	========================	========================	-->
 
 	<loc>
-		<__SCRIPT_ROOT				u='http://z2/projs/kisla/X-react-starter/dev/WS/'	/>
+		<__SCRIPT_ROOT				u='http://localhost:3000/'	/>
 		<SCRIPT_ROOT				u='http://Xttt.kisla.com/'	/>
 
 
 		<SCRIPT__contact_form		u='e/s'	/>
 
 
-		<SOCKET__io		_u='http://z2:3001'	/>
+		<SOCKET__io		u='http://localhost:3001'	/>
 	</loc>
 
 <!--	========================	========================	========================	-->
