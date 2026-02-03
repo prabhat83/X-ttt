@@ -82,17 +82,20 @@ export default class GameMain extends Component {
 				cell_vals: {}
 			})
 
-			for (let i = 1; i <= 9; i++)
+			for (let i = 1; i <= 9; i++) {
 				this.refs['c' + i].classList.remove('win')
+			}
 		}.bind(this));
 
 		this.socket.on('lobby_waiting', function (data) {
 			console.log('lobby_waiting', data, this.state)
 			if (data && data.waiting && !this.state.game_play) {
 				this.setState({
-					game_stat: 'Choose opponent to invite',
+					queue_size: data.queue_size,
+					game_stat: data.queue_size === 1 || !data.players.some((p) => p.status === 'looking')
+						? 'Waiting for players' : 'Choose opponent to invite',
 					available_players: data.players || []
-				})
+				});
 
 				console.log('lobby waiting', data)
 			}
@@ -156,9 +159,7 @@ export default class GameMain extends Component {
 	//	------------------------	------------------------	------------------------
 
 	render() {
-		console.log(this.state)
 		const { available_players, received_invite, game_play } = this.state
-		console.log('GameMain render', this.state)
 
 		return (
 			<div id='GameMain'>
